@@ -1,0 +1,81 @@
+/** Khan Academy: SQL Basics Code **/
+
+/** Challenge: Booklist database **/
+
+--Create table called fav_books that includes columns for id, name, and rating.
+CREATE TABLE fav_books (id INTEGER PRIMARY KEY, name TEXT, rating INTEGER);
+
+INSERT INTO fav_books VALUES (1, "Mindf*ck", 7);
+INSERT INTO fav_books VALUES (2, "Factfulness", 9);
+INSERT INTO fav_books VALUES (3, "Dark Money", 8);
+INSERT INTO fav_books VALUES (4, "Island", 10);
+
+--Show 3 of the books from this database.
+
+SELECT * FROM fav_books LIMIT 3; 
+
+/** Challenge: Box Office hits database **/
+
+--Create a table of movies that tracks their id, name, and release year. 
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY, name TEXT, release_year INTEGER);
+INSERT INTO movies VALUES (1, "Avatar", 2009);
+INSERT INTO movies VALUES (2, "Titanic", 1997);
+INSERT INTO movies VALUES (3, "Star Wars: Episode IV - A New Hope", 1977);
+INSERT INTO movies VALUES (4, "Shrek 2", 2004);
+INSERT INTO movies VALUES (5, "The Lion King", 1994);
+INSERT INTO movies VALUES (6, "Disney's Up", 2009);
+ 
+SELECT * FROM movies;
+--Return every column for movies released 2000 or later but order it starting with the oldest movies. 
+SELECT * FROM movies WHERE release_year>1999 ORDER BY release_year;
+
+/** Challenge: TODO list database stats **/
+
+--Create a table to track my to-do list's id, item (chore), and how many minutes that item is expected to take. 
+CREATE TABLE todo_list (id INTEGER PRIMARY KEY, item TEXT, minutes INTEGER);
+INSERT INTO todo_list VALUES (1, "Wash the dishes", 15);
+INSERT INTO todo_list VALUES (2, "vacuuming", 20);
+INSERT INTO todo_list VALUES (3, "Learn some stuff on KA", 30);
+INSERT INTO todo_list VALUES (4, "watch portuguese", 30);
+
+--Show me how long all these tasks would take. 
+SELECT SUM(minutes) FROM todo_list;
+
+/** Project: Design a store database **/
+
+--Create a table for a bookstore that tracks id, book title, book price, book rating, and book genre. 
+CREATE TABLE bookstore (id INTEGER PRIMARY KEY, title TEXT, price INTEGER, rating INTEGER, genre TEXT); 
+
+--Add in 15 books.
+INSERT INTO bookstore VALUES (1, "love in rome", 13, 7, "romance");
+INSERT INTO bookstore VALUES (2, "ya ya ya", 11, 6, "comedy");
+INSERT INTO bookstore VALUES (3, "omg", 12, 4, "horror"); 
+INSERT INTO bookstore VALUES (4, "fruiti", 16, 4, "romance");
+INSERT INTO bookstore VALUES (5, "scandal", 19, 3, "romance");
+INSERT INTO bookstore VALUES (6, "oopsies", 17, 9, "romance");
+INSERT INTO bookstore VALUES (7, "galaxy shooters", 29, 1, "sci-fi");
+INSERT INTO bookstore VALUES (8, "christmas cumsicle", 13, 4, "holiday");
+INSERT INTO bookstore VALUES (9, "SCRAMEOW", 13, 4, "horror");
+INSERT INTO bookstore VALUES (10, "I'm hungies", 16, 4, "romance");
+INSERT INTO bookstore VALUES (11, "yes?", 21, 3, "romance");
+INSERT INTO bookstore VALUES (12, "no!", 23, 2, "romance");
+INSERT INTO bookstore VALUES (13, "not another word", 17, 10, "romance");
+INSERT INTO bookstore VALUES (14, "how to be nothing", 14, 4, "self-help");
+INSERT INTO bookstore VALUES (15, "holes", 16, 9, "horror");
+
+--Show me the title & price of books ordered by most to least expensive.
+SELECT title, price FROM bookstore ORDER BY price DESC;
+
+--Show me the cheapest book, the total number of books, the average book price, the average price of each genre of books,
+the highest rating recieved by any book in for each genre, and the title, genre, and rating of books rated 6+, in order
+of highest to lowest rating. 
+SELECT MIN(price) FROM bookstore;
+SELECT COUNT(title) FROM bookstore; 
+SELECT AVG(price) FROM bookstore; 
+SELECT genre, AVG(price) FROM bookstore GROUP BY genre; 
+SELECT genre, MAX(rating) FROM bookstore GROUP BY genre; 
+SELECT title, genre, rating FROM bookstore WHERE rating>5 ORDER BY rating DESC; 
+
+--Show me the title and price of books rated 9 or higher, in order of most to least expensive.
+SELECT title, price FROM bookstore WHERE rating>8 ORDER BY price ASC; 
